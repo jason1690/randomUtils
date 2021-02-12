@@ -2,7 +2,7 @@ package utils;
 
 //for light computing. 
 public class ArrayList<T> {
-	private Object[] array = new Object[8];
+	private Object[] array = new Object[128];
 	int arrayLength=0;
 	
 	//adds an object to the array. 
@@ -140,5 +140,10 @@ public class ArrayList<T> {
 	//constructor
 	public ArrayList() {
 		
+	}
+	
+	//constructor with length paramiter 
+	public ArrayList(int length) {
+		array=new Object[length];
 	}
 }
