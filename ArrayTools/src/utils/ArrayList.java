@@ -5,26 +5,51 @@ public class ArrayList<T> {
 	private Object[] array = new Object[8];
 	int arrayLength=0;
 	
+	//adds an object to the array. 
 	public void add(T obj) {
 		
-		if(arrayLength>=array.length*0.90) 
+		if(arrayLength+1>=array.length*0.90) 
 			transmogrify(2);
 		
 		array[arrayLength]=obj;
-		
 		arrayLength+=1;
-		
-		
 	}
 	
+	//adds all of the data given to the array.
+	public void add(T[] obj) {
+		
+		while(arrayLength+obj.length>=array.length*0.90) 
+			transmogrify(2);
+		
+		for(int i=0;i<obj.length;i++) {
+			array[arrayLength]=obj[i];
+			arrayLength+=1;
+		}
+	}
+	
+	//returns the amount of the given object in the array.
+	public int amountOf(T obj) {
+		int amount=0;
+		
+		for(int i=0;i<arrayLength;i++) 
+			if(array[i].equals(obj)) 
+				amount++;
+			
+		return amount;
+	}
+	
+	//return the amount of data in the array.
 	public int size() {
 		return arrayLength;
 	}
 	
+	//return the casted element of the array from the given index.
 	@SuppressWarnings("unchecked")
 	public T get(int i) {
 		return  (T) (array[i]);
 	}
+	
+	//find all of the objects that match the give value and then removes them all.
 	public void removeAllValues(T value) {
 		ArrayList<Integer> numbers=new ArrayList<Integer>();
 		for(int i=0;i<arrayLength;i++) {
@@ -39,6 +64,7 @@ public class ArrayList<T> {
 		removeIndexs(indexes);
 	}
 	
+	//removes the give cell from the array
 	public void remove(int index) {
 		int[] output= {
 				index
@@ -46,6 +72,7 @@ public class ArrayList<T> {
 		removeIndexs(output);
 	}
 	
+	//removes all of the given cells from the array
 	public void removeIndexs(int[] indexes) {
 		int start=indexes[0];
 		int swapLength=0;
@@ -65,8 +92,15 @@ public class ArrayList<T> {
 		
 		arrayLength-=swapLength;
 		
+		if(arrayLength>8) {
+			if(array.length*0.4>arrayLength) {
+				transmogrify(0.5);
+			}
+		}
+		
 	}
 	
+	//Modifies the length of the array
 	private void transmogrify(double scalar) {
 		Object[] arrayOutput=new Object[(int) (array.length*scalar)];
 		
@@ -82,8 +116,7 @@ public class ArrayList<T> {
 		
 	}
 	
-
-	
+	//returns true if the array contains the given object
 	public boolean contains(Object obj) {
 		
 		for(int i=0;i<arrayLength;i++) 
@@ -94,6 +127,7 @@ public class ArrayList<T> {
 		
 	}
 	
+	//return the object array
 	public Object[] toArray() {
 		Object[] output=new Object[arrayLength];
 		
@@ -103,6 +137,7 @@ public class ArrayList<T> {
 		return output;
 	}
 	
+	//constructor
 	public ArrayList() {
 		
 	}
